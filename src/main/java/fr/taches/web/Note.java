@@ -1,22 +1,17 @@
 package fr.taches.web;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
-@Entity
+import fr.taches.domain.Liste;
 
 public class Note {
-	@Id
-    @GeneratedValue
+
 	private int id;
 	private String nom;
 	private String texte;
 	
 	
-	@ManyToOne
+
 	private Liste liste;
+	
 	
 	public Note(int id, String nom, String texte) {
 		super();
@@ -25,8 +20,9 @@ public class Note {
 		this.texte = texte;
 	}
 	
+	
 	public Note() {
-		// TODO Auto-generated constructor stub
+		super();// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {

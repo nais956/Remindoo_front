@@ -5,37 +5,21 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+import fr.taches.domain.Note;
 
 
-import fr.taches.web.Note;
-
-
+@SpringBootApplication
 public class RemindooApplication {
 
 	public static void main(String[] args) {
 	
-		//Connexion à la BDD
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-		EntityManager entityManager = emf.createEntityManager();
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		
-    	try{
-    		
-			tx.begin();
-			
-			Note note = new Note();
-			note.setNom("Note1");
-					
-			
-			entityManager.persist(note);
-				
-			tx.commit();			
-		
-		}catch(Exception e){
-			tx.rollback();
-		}
-		
+		SpringApplication.run(RemindooApplication.class, args);
 	}
 }
 

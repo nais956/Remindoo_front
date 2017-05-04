@@ -31,7 +31,11 @@ public class PersistenceJPAConfiguration {
 
         // no need shutdown, EmbeddedDatabaseFactoryBean will take care of this
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        return builder.setType(EmbeddedDatabaseType.HSQL).build();
+        EmbeddedDatabase db = builder
+                .setType(EmbeddedDatabaseType.HSQL) //.H2 or .DERBY
+                .setName("testdb2")
+                .build();
+        		return db;
 
     }
 
@@ -40,13 +44,12 @@ public class PersistenceJPAConfiguration {
         return new JdbcTemplate(dataSource);
     }
 
-    @PostConstruct
-    public void startDBManager() {
+	@PostConstruct
+	public void getDbManager(){
+	   DatabaseManagerSwing.main(
+		new String[] { "--url", "jdbc:hsqldb:mem:testdb2", "--user", "sa", "--password", ""});
+	}
 
-        //hsqldb
-        //DatabaseManagerSwing.main(new String[]{"--url", "jdbc:hsqldb:mem:manager1", "--user", "sa", "--password", ""});
-
-    }
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
@@ -79,4 +82,6 @@ public class PersistenceJPAConfiguration {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;
     }
+    
+
 }

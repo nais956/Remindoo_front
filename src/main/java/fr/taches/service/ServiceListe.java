@@ -10,8 +10,17 @@ import javax.persistence.Persistence;
 
 import fr.taches.domain.Note;
 
-public class ServiceListe {
+public interface ServiceListe {
 
+
+		List<Note> listNote();
+
+		
+		void createNote(Note newNote);
+
+	}
+	
+	/*
 	EntityManager entityManager;
 	
 	public ServiceListe(){
@@ -42,4 +51,4 @@ public class ServiceListe {
 
 	
 	
-}
+}*/

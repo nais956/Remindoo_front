@@ -1,0 +1,12 @@
+<div>
+<form novalidate>
+	Notes :
+	<select ng-options="note.nom for note in listeNotes" ng-model="noteChoisie">
+	</select>
+	<input type="button" ng-click="selectionNote(noteChoisie)" value="Voir" >
+</form>
+
+Pour debugger :<br> 
+- listenotes : {{listeNotes | json}}<br>
+- noteChoisie : {{noteChoisie | json}} 
+</div>

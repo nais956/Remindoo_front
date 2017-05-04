@@ -5,13 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Note")
 public class Note {
 	@Id
     @GeneratedValue
-	private int id;
+	private Long id;
 	private String nom;
 	private String texte;
 	
@@ -19,31 +20,22 @@ public class Note {
 	@ManyToOne
 	private Liste liste;
 	
-	public Note(int id, String nom, String texte) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.texte = texte;
-	}
-	
-	
-	public Note(fr.taches.web.Note note) {
-		this.id = note.getId();
-		this.nom = note.getNom();
-		this.texte = note.getTexte();
-	}
-	
-	
-
 	public Note() {
-		// TODO Auto-generated constructor stub
+
+	}
+	
+	
+	protected Note(Builder note) {
+		this.id = note.id;
+		this.nom = note.nom;
+		this.texte = note.texte;
 	}
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNom() {
@@ -59,5 +51,38 @@ public class Note {
 		this.texte = texte;
 	}
 	
+	public Liste getListe() { return liste; }
+	
+	
+	public static class Builder {
+		private Long id;
+		private String nom;
+		private String texte;
+		private Liste liste;
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withNom(String nom) {
+            this.nom = nom;
+            return this;
+        }
+
+        public Builder withTexte(String texte) {
+            this.texte = texte;
+            return this;
+        }
+
+        public Builder withListe(Liste liste) {
+            this.liste = liste;
+            return this;
+        }
+
+        public Note build() {
+            return new Note(this);
+        }
+}
 	
 }

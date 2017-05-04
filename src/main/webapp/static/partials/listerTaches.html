@@ -1,0 +1,12 @@
+<div>
+<form novalidate>
+	Taches :
+	<select ng-options="tache.nom for tache in listeTaches" ng-model="tacheChoisie">
+	</select>
+	<input type="button" ng-click="selectionTache(tacheChoisie)" value="Voir" >
+</form>
+
+Pour debugger :<br> 
+- listetaches : {{listeTaches | json}}<br>
+- tacheChoisie : {{tacheChoisie | json}} 
+</div>

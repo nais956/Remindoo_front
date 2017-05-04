@@ -6,12 +6,12 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
     
-    <class>fr.taches.web.Categorie</class>
-    <class>fr.taches.web.Liste</class>
-    <class>fr.taches.web.Note</class>
-    <class>fr.taches.web.Tache</class>
-    <class>fr.taches.web.TypeTache</class>
-    <class>fr.taches.web.Utilisateur</class>
+    <class>fr.taches.domain.Categorie</class>
+    <class>fr.taches.domain.Liste</class>
+    <class>fr.taches.domain.Note</class>
+    <class>fr.taches.domain.Tache</class>
+    <class>fr.taches.domain.TypeTache</class>
+    <class>fr.taches.domain.Utilisateur</class>
     
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     

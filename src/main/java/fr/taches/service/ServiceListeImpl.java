@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import fr.taches.dao.TestDao;
 import fr.taches.domain.*;
+import fr.taches.jms.Consumer;
+import fr.taches.jms.Producer;
 
 @Service
 public class ServiceListeImpl implements ServiceListe {
@@ -14,6 +16,12 @@ public class ServiceListeImpl implements ServiceListe {
     @Autowired
     private TestDao testDao;
 
+    
+    @Autowired
+    Consumer jmsConsumer;
+     
+    @Autowired
+    Producer jmsProducer;
 
     @Override
     public List<Note> listNote() {
@@ -24,6 +32,7 @@ public class ServiceListeImpl implements ServiceListe {
 
 	@Override
 	public void createNote(Note newNote) {
+		jmsProducer.sendMessage(newNote);
         testDao.saveOrUpdate(newNote);
 		
 	}

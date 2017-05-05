@@ -5,11 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Note")
-public class Note {
+public class Note   implements Serializable{
 	@Id
     @GeneratedValue
 	private Long id;

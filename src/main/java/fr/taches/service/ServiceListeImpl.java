@@ -3,6 +3,7 @@ package fr.taches.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import fr.taches.dao.TestDao;
@@ -23,18 +24,20 @@ public class ServiceListeImpl implements ServiceListe {
     @Autowired
     Producer jmsProducer;
 
+    @Async
     @Override
     public List<Note> listNote() {
         return testDao.findAll();
         
 }
 
-
+    @Async
 	@Override
 	public void createNote(Note newNote) {
 		jmsProducer.sendMessage(newNote);
         testDao.saveOrUpdate(newNote);
 		
 	}
+
 
 }

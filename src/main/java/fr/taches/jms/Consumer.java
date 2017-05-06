@@ -1,6 +1,7 @@
 package fr.taches.jms;
 
 import javax.jms.JMSException;
+import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,12 +26,10 @@ public class Consumer {
     @Autowired
     ServiceListe serviceListe;
      
-    public void receiveMessage(final Message<Note> message) throws JMSException {
-
-        MessageHeaders headers =  message.getHeaders();
-         
-        Note response = message.getPayload();
-         
-        serviceListe.createNote(response); 
+    @Value("remindoo-queue")
+    String destinationQueue;
+     
+    public String receive(){
+        return (String)jmsTemplate.receiveAndConvert(destinationQueue); 
     }
 }

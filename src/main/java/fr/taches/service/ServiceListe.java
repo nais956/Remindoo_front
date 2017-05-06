@@ -17,6 +17,7 @@ public interface ServiceListe {
 
 		
 		void createNote(Note newNote);
+		
 
 	}
 	

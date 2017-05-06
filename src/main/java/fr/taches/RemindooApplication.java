@@ -1,41 +1,27 @@
 package fr.taches;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+
+import javax.swing.JFrame;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 
 
-import fr.taches.web.Note;
 
-
-public class RemindooApplication {
+@SpringBootApplication
+public class RemindooApplication extends SpringBootServletInitializer  {
 
 	public static void main(String[] args) {
 	
-		//Connexion à la BDD
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-		EntityManager entityManager = emf.createEntityManager();
-		
-		EntityTransaction tx = entityManager.getTransaction();
-		
-    	try{
-    		
-			tx.begin();
-			
-			Note note = new Note();
-			note.setNom("Note1");
-					
-			
-			entityManager.persist(note);
-				
-			tx.commit();			
-		
-		}catch(Exception e){
-			tx.rollback();
-		}
-		
+		SpringApplication.run(RemindooApplication.class, args);
 	}
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(RemindooApplication.class);
+}
 }
 

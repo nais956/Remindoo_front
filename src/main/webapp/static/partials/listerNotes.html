@@ -1,12 +1,22 @@
 <div>
-<form novalidate>
-	Notes :
-	<select ng-options="note.nom for note in listeNotes" ng-model="noteChoisie">
-	</select>
-	<input type="button" ng-click="selectionNote(noteChoisie)" value="Voir" >
-</form>
+	<div class="row">
+	   <div class="col-md-6">
+			<div class="card ">
+				<div class="header">
+					<h4 class="title">Liste des notes</h4>
+					<p class="category">Categorie</p>
+				</div>
+				<div class="content">
+					<form novalidate>
+						Notes :
+						<select ng-options="note.nom for note in listeNotes" ng-model="noteChoisie">
+						</select>
+						<input type="button" class="btn btn-info btn-fill pull-right" ng-click="selectionNote(noteChoisie)" value="Voir" >
+					</form>
 
-Pour debugger :<br> 
-- listenotes : {{listeNotes | json}}<br>
-- noteChoisie : {{noteChoisie | json}} 
+					Pour debugger :<br> 
+					- listenotes : {{listeNotes | json}}<br>
+					- noteChoisie : {{noteChoisie | json}} 
+				</div>
+	</div>
 </div>

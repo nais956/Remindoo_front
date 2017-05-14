@@ -9,4 +9,6 @@ import fr.taches.domain.Note;
 @Component
 public interface NoteRepository extends JpaRepository<Note, Long> {
 	Note findByNom(String nom);
+
+
 }

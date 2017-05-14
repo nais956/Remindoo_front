@@ -3,19 +3,20 @@ package fr.taches.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import fr.taches.dao.TestDao;
 import fr.taches.domain.*;
 import fr.taches.jms.Consumer;
 import fr.taches.jms.Producer;
+import fr.taches.repository.NoteRepository;
 
 @Service
 public class ServiceListeImpl implements ServiceListe {
 
     @Autowired
-    private TestDao testDao;
+    private NoteRepository noteRepository;
 
     
     @Autowired
@@ -27,15 +28,14 @@ public class ServiceListeImpl implements ServiceListe {
     @Async
     @Override
     public List<Note> listNote() {
-        return testDao.findAll();
+        return noteRepository.findAll(new Sort(new Sort.Order(Sort.Direction.ASC, "id")));
         
 }
 
     @Async
 	@Override
 	public void createNote(Note newNote) {
-		jmsProducer.sendMessage(newNote);
-        testDao.saveOrUpdate(newNote);
+    	noteRepository.save(newNote);
 		
 	}
 

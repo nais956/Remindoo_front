@@ -18,7 +18,7 @@ import fr.taches.service.ServiceListe;
 
 @RestController
 @CrossOrigin
-public class ControllerListe {
+public class ControllerListeNotes {
 	
 	@Autowired
 	private ServiceListe ServiceListe;

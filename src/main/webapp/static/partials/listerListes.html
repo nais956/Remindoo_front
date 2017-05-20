@@ -1,0 +1,24 @@
+<div>
+	<div class="row">
+	   <div class="col-md-6">
+			<div class="card ">
+				<div class="header">
+					<h4 class="title">Liste des listes</h4>
+					<p class="category"></p>
+				</div>
+				<div class="content">
+					<form novalidate>
+						Listes :
+						<select ng-options="liste.nom for liste in listeListes" ng-model="listeChoisie">
+						</select>
+						<a  href="#/gestionTaches/getAllNotes/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Voir" ng-click="listerNotes(listeChoisie.id)"> Voir  </a>
+						<a  href="#/gestionTaches/deleteListe/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Supprimer" ng-click="supprimerListe(listeChoisie.id)" > Supprimer </a>
+						<a  href="#/gestionTaches/modifierListe/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Modifier" > Modifier </a>
+					</form>
+
+					Pour debugger :<br> 
+					- listeListes : {{listeListes | json}}<br>
+					- listeChoisie : {{listeChoisie | json}} 
+				</div>
+	</div>
+</div>

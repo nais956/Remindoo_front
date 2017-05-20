@@ -7,19 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
-import fr.taches.domain.Liste;
 import fr.taches.domain.Note;
+import fr.taches.domain.Tache;
 
 @Component
-public interface NoteRepository extends JpaRepository<Note, Long> {
-	Note findByNom(String nom);
+public interface TacheRepository extends JpaRepository<Tache, Long> {
+	Tache findByNom(String nom);
 	
 	
-	@Query("select n from Note n where n.liste.id=?1")
-	List<Note> getNotebyListe(Long idListe);
-
-
-	Note findById(Long idNote);
+	@Query("select t from Tache t where t.liste.id=?1")
+	List<Tache> getTachebyListe(Long idListe);
 	
 
 }

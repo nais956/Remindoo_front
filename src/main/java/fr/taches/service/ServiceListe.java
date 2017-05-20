@@ -8,48 +8,26 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import fr.taches.domain.Liste;
 import fr.taches.domain.Note;
+import fr.taches.domain.Tache;
 
 public interface ServiceListe {
 
 
+		List<Liste> listListe();
+		void createListe(Liste newListe);
+		Liste findById(Long idListe);	
+		void deleteListe(Long idListe);
+		public void updateListe(Liste liste, Long idListe);
+		
+		
 		List<Note> listNote();
-
-		
+		List<Note> getAllNotes(Long idListe);
 		void createNote(Note newNote);
+		Note findNoteById(Long idNote);
+		void updateNote(Note note, Long idNote);
+		void deleteNote(Long idNote);
 		
-
-	}
-	
-	/*
-	EntityManager entityManager;
-	
-	public ServiceListe(){
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
-		entityManager = emf.createEntityManager();
-	}
-	
-	public void ajouterNote(fr.taches.web.Note Note){
-		fr.taches.domain.Note NoteJPA = new fr.taches.domain.Note(Note);
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		entityManager.persist(NoteJPA);
-		tx.commit();
-	}
-	
-
-	public List<fr.taches.web.Note> listerNotes(){
-		List notesJPA = entityManager.createQuery("select n from Note n").getResultList();
-		List<fr.taches.web.Note> NotesDTO = new ArrayList<fr.taches.web.Note>();
-		fr.taches.domain.Note jpa;
-		for(int i=0; i<notesJPA.size(); i++){
-			jpa = (Note) notesJPA.get(i);
-			fr.taches.web.Note dto = new fr.taches.web.Note(jpa.getId(), jpa.getNom(), jpa.getTexte());
-			NotesDTO.add(dto);
-		}
-		return NotesDTO;
-	}
-
-	
-	
-}*/
+		List<Tache> getAllTaches(Long idListe);
+}

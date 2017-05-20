@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -21,19 +24,26 @@ public class Note   implements Serializable{
 	
 	
 	@ManyToOne
+	@JoinColumn(name="listeid")
+	@JsonBackReference
 	private Liste liste;
 	
+	
+	
+	
+
 	public Note() {
 
 	}
 	
-	
+
 	protected Note(Builder note) {
 		this.id = note.id;
 		this.nom = note.nom;
 		this.texte = note.texte;
 	}
 
+	
 
 	public Long getId() {
 		return id;
@@ -54,13 +64,16 @@ public class Note   implements Serializable{
 		this.texte = texte;
 	}
 	
-	public Liste getListe() { return liste; }
+	public Liste getListe() { 
+		return liste; 
+	}
 	
 	
 	public static class Builder {
 		private Long id;
 		private String nom;
 		private String texte;
+		private Long idListe;
 		private Liste liste;
 
         public Builder withId(Long id) {
@@ -87,5 +100,11 @@ public class Note   implements Serializable{
             return new Note(this);
         }
 }
+
+
+	public void setListe(Liste liste) {
+		this.liste = liste;
+		
+	}
 	
 }

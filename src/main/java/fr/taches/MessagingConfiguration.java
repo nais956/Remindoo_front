@@ -3,9 +3,6 @@ package fr.taches;
 
 
 
-
-import java.util.Arrays;
-
 import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

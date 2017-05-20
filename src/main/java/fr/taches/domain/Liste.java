@@ -1,5 +1,6 @@
 package fr.taches.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,12 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import fr.taches.domain.Note.Builder;
+
 @Entity
 
 public class Liste {
+	
 	@Id
     @GeneratedValue
-	private int idListe;
+	private Long  id;
 	
 	private String nom;
 	
@@ -25,14 +29,22 @@ public class Liste {
 
 	}
 	
-	@OneToMany(mappedBy = "liste")
-	private List<Note> note;
-	
-	public int getIdListe() {
-		return idListe;
+
+	protected Liste(Builder liste) {
+		this.id = liste.id;
+		this.nom = liste.nom;
 	}
-	public void setIdListe(int idListe) {
-		this.idListe = idListe;
+
+
+
+	@OneToMany(mappedBy = "liste")
+	private List<Note> note = new ArrayList<Note>();
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -54,5 +66,32 @@ public class Liste {
 		this.utilisateur = utilisateur;
 	}
 	
+	public static class Builder {
+		private Long id;
+		private String nom;
+		private Utilisateur utilisateur;
+
+        public Builder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withNom(String nom) {
+            this.nom = nom;
+            return this;
+        }
+
+        public Builder withUtilisateur(Utilisateur utilisateur) {
+            this.utilisateur = utilisateur;
+            return this;
+        }
+
+
+
+        public Liste build() {
+            return new Liste(this);
+        }
 	
+	
+	}
 }

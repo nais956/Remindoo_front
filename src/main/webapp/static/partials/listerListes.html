@@ -3,22 +3,41 @@
 	   <div class="col-md-6">
 			<div class="card ">
 				<div class="header">
-					<h4 class="title">Liste des listes</h4>
-					<p class="category"></p>
+					<h4 class="title">Mes listes</h4>
+					<p class="category">Consulter mes listes</p>
 				</div>
 				<div class="content">
-					<form novalidate>
-						Listes :
-						<select ng-options="liste.nom for liste in listeListes" ng-model="listeChoisie">
-						</select>
-						<a  href="#/gestionTaches/getAllNotes/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Voir" ng-click="listerNotes(listeChoisie.id)"> Voir  </a>
-						<a  href="#/gestionTaches/deleteListe/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Supprimer" ng-click="supprimerListe(listeChoisie.id)" > Supprimer </a>
-						<a  href="#/gestionTaches/modifierListe/{{listeChoisie.id}}" class="btn btn-info btn-fill pull-right" value="Modifier" > Modifier </a>
-					</form>
-
-					Pour debugger :<br> 
-					- listeListes : {{listeListes | json}}<br>
-					- listeChoisie : {{listeChoisie | json}} 
+					<div class="table-full-width">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>N° de liste</th>
+								  <th>Nom</th>   							  
+							  </tr>
+                            </thead>
+							<tbody>
+								<tr ng-repeat="liste in listeListes">
+										<td>{{liste.id}}</td>
+										<td>{{liste.nom}}</td>
+										<td class="td-actions text-right">
+											<a  href="#/gestionTaches/modifierListe/{{liste.id}}" rel="tooltip" title="Modifier" class="btn btn-info btn-simple btn-s" value="Modifier" >  
+												<i class=" 	fa fa-pencil"></i>
+											</a>
+											<a  href="#/gestionTaches/deleteListe/{{liste.id}}" rel="tooltip" title="Supprimer" class="btn btn-danger btn-simple btn-s" value="Supprimer" ng-click="supprimerListe(liste.id)" >
+												<i class="fa fa-times"></i>
+											</a>
+											<a  href="#/gestionTaches/getAllNotes/{{liste.id}}" rel="tooltip" title="Voir les notes de cette liste" class="btn btn-info btn-simple btn-s" value="Voir" ng-click="listerNotes(liste.id)">
+												<i class="fa fa-book"></i>
+											</a>
+											<a  href="#/gestionTaches/getAllTaches/{{liste.id}}" rel="tooltip" title="Voir les tâches de cette liste" class="btn btn-info btn-simple btn-s" value="Voir" ng-click="listerTaches(liste.id)">
+												<i class="fa fa-check-square-o"></i>
+											</a>
+										</td>
+								</tr>
+							</tbody>
+                         </table>
+                    </div>
 				</div>
+			</div>
+		</div>
 	</div>
-</div>

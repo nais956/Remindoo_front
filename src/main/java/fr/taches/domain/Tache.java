@@ -17,6 +17,7 @@ public class Tache extends Note {
 	@ManyToOne
 	private TypeTache typeTache;
 	
+
 	
 	public TypeTache getTypeTache() {
 		return typeTache;
@@ -26,6 +27,8 @@ public class Tache extends Note {
 	public void setTypeTache(TypeTache typeTache) {
 		this.typeTache = typeTache;
 	}
+
+
 
 
 

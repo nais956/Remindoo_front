@@ -7,17 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
-
+import fr.taches.domain.Note;
 import fr.taches.domain.Tache;
-
+import fr.taches.domain.TypeTache;
 
 @Component
-public interface TacheRepository extends JpaRepository<Tache, Long> {
-	Tache findByNom(String nom);
+public interface TypeTacheRepository extends JpaRepository<TypeTache, Long> {
+	TypeTache findByNom(String nom);
 	
 	
-	@Query("select t from Tache t where t.liste.id=?1")
-	List<Tache> getTachebyListe(Long idListe);
 	
-	Tache findById(Long idTache);
+	TypeTache findById(Long idTypeTache);
 }

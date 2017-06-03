@@ -47,9 +47,12 @@ public class ControllerListe {
     }
     
     @RequestMapping(value = "/deleteListe/{idListe}", method = RequestMethod.DELETE)
-    public String  deleteListe(@PathVariable("idListe") Long idListe){
+    public void  deleteListe(@PathVariable("idListe") Long idListe){
+    	List<Note> listeElements = ServiceListe.getAllElements(idListe);
+    	for(Note note : listeElements){
+    		ServiceListe.deleteNote(note.getId());
+    	}
     	ServiceListe.deleteListe(idListe);
-    	return "redirect:/gestionTaches/listes";
     }
     
     @RequestMapping(value = "/getAllNotes/{idListe}", method = RequestMethod.GET)

@@ -12,18 +12,18 @@ public class TypeTache {
 	
 	@Id
     @GeneratedValue
-	private int idTypeTache;
+	private Long id;
 	private String nom;
 	
 	@Enumerated(EnumType.STRING)
 	private Categorie categorie;
 	
 
-	public int getIdTypeTache() {
-		return idTypeTache;
+	public Long getId() {
+		return id;
 	}
-	public void setIdTypeTache(int idTypeTache) {
-		this.idTypeTache = idTypeTache;
+	public void setId(Long idTypeTache) {
+		this.id = idTypeTache;
 	}
 	public String getNom() {
 		return nom;
@@ -32,6 +32,12 @@ public class TypeTache {
 		this.nom = nom;
 	}
 
+	public Categorie getCategorie(){
+		return categorie;
+	}
 	
+	public void setCategorie(Categorie categorie){
+		this.categorie = categorie;
+	}
 	
 }

@@ -1,12 +1,58 @@
 <div>
-<form novalidate>
-	Taches :
-	<select ng-options="tache.nom for tache in listeTaches" ng-model="tacheChoisie">
-	</select>
-	<input type="button" ng-click="selectionTache(tacheChoisie)" value="Voir" >
-</form>
-
-Pour debugger :<br> 
-- listetaches : {{listeTaches | json}}<br>
-- tacheChoisie : {{tacheChoisie | json}} 
-</div>
+	<div class="row">
+	   <div class="col-md-10">
+			<div class="card ">
+				<div class="header">
+					<h4 class="title">Liste des tâches</h4>
+					<p class="category">Consulter mes tâches</p>
+					<a href="#/gestionTaches/getAllTaches/{{id}}/ajoutTache" class="btn btn-info btn-fill pull-right btn-add"><i class="fa fa-plus"></i>
+						Ajouter une tâche
+					</a>
+					<br><br>
+				</div>
+				<div class="content">
+					<div class="table-full-width">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>N° de tâche</th>
+								  <th>Nom</th>
+								  <th>Texte</th>
+								  <th>Type de tâche</th>
+								  <th>Catégorie</th>
+							  </tr>
+                            </thead>
+							<tbody>
+								<tr ng-repeat="tache in listeTaches">
+										<!--<td>
+											<label class="checkbox">
+												<input type="checkbox" value="" data-toggle="checkbox">
+											</label>
+										</td>-->
+										<td>{{tache.id}}</td>
+										<td>{{tache.nom}}</td>
+										<td>{{tache.texte}}</td>
+										<td>{{tache.typeTache.nom}}</td>
+										<td ng-switch on="tache.typeTache.categorie" >
+											<span ng-switch-when="Travail" class="label label-danger">{{tache.typeTache.categorie}}</span>
+											<span ng-switch-when="Maison" class="label label-warning">{{tache.typeTache.categorie}}</span>
+											<span ng-switch-when="Loisirs" class="label label-info">{{tache.typeTache.categorie}}</span>
+											<span ng-switch-default="Loisirs" class="label label-success">{{tache.typeTache.categorie}}</span>
+											
+										</td>
+										<td class="td-actions text-right">
+											<a  href="#/gestionTaches/getAllTaches/{{id}}/modifierTache/{{tache.id}}" rel="tooltip" title="Modifier" class="btn btn-info btn-simple btn-s" value="Modifier" >  
+												<i class="fa fa-edit"></i>
+											</a>
+											<a  href="#/gestionTaches/deleteTache/{{tache.id}}" rel="tooltip" title="Supprimer" class="btn btn-danger btn-simple btn-s" value="Supprimer" ng-click="supprimerTache(tache.id)" >
+												<i class="fa fa-times"></i>
+											</a>
+										</td>
+								</tr>
+							</tbody>
+                         </table>
+                    </div>
+				</div>
+			</div>
+		</div>
+	</div>

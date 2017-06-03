@@ -1,0 +1,27 @@
+<div>
+	<div class="row">
+	   <div class="col-md-6">
+			<div class="card ">
+				<div class="header">
+					<h4 class="title">Voir note n°{{noteAffiche.id}}</h4>
+					<p class="category"></p>
+					<a  href="#/gestionTaches/getAllNotes/{{idListe}}" rel="tooltip" title="Retour liste de notes" class="btn btn-info btn-simple btn-s" value="Retour liste de notes" >
+						<i class="fa fa-caret-square-o-left"></i>  Retour à la liste des notes
+					</a>
+				</div>
+				<div class="content">
+					<div class="form-group">
+						<label>Nom:</label>
+						<input type="text" class="form-control" disabled placeholder="Nom" value="{{noteAffiche.nom}}">
+						
+					</div>
+					<div class="form-group">
+						<label>Texte :</label>
+						 <input type="text" class="form-control" disabled placeholder="Texte" value="{{noteAffiche.texte}}">
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>

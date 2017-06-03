@@ -6,6 +6,4 @@ public enum Categorie {
 	Travail,
 	Loisirs
 	
-	
-	
 }

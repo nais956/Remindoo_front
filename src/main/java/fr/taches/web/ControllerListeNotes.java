@@ -25,14 +25,16 @@ public class ControllerListeNotes {
 	private ServiceListe ServiceListe;
 	
 	
-    @RequestMapping(value = "/notes", method = RequestMethod.GET)
-    public List<Note>  getNotes() {
-        return ServiceListe.listNote();
+    
+    @RequestMapping(value = "/voirNote/{idNote}", method = RequestMethod.GET)
+    public Note  getNote(@PathVariable("idNote") Long idNote) {
+        return ServiceListe.findNoteById(idNote);
     }
 
-    @RequestMapping(value = "/note", method = RequestMethod.POST)
-    public Note postNote(@RequestBody Note note) {  	
-    	Liste liste = ServiceListe.findById(note.getListe().getId());
+
+    @RequestMapping(value = "/{idListe}/note", method = RequestMethod.POST)
+    public Note postNote(@RequestBody Note note, @PathVariable("idListe") Long idListe) {  	
+    	Liste liste = ServiceListe.findById(idListe);
     	note.setListe(liste);
         ServiceListe.createNote(note);
         return note;
@@ -45,9 +47,8 @@ public class ControllerListeNotes {
     }
     
     @RequestMapping(value = "/deleteNote/{idNote}", method = RequestMethod.DELETE)
-    public String  deleteNote(@PathVariable("idNote") Long idNote){
+    public void  deleteNote(@PathVariable("idNote") Long idNote){
     	ServiceListe.deleteNote(idNote);
-    	return "redirect:/gestionTaches/notes";
     }
         
 }

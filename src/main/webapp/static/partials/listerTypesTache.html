@@ -1,0 +1,38 @@
+<div>
+	<div class="row">
+	   <div class="col-md-8">
+			<div class="card ">
+				<div class="header">
+					<h4 class="title">Mes types de tâche</h4>
+					<p class="category">Consulter mes types de tâche</p>
+				</div>
+				<div class="content">
+					<div class="table-full-width">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+								  <th>N° de type de tâche</th>
+								  <th>Nom</th>
+								  <th>Catégorie</th>
+							  </tr>
+                            </thead>
+							<tbody>
+								<tr ng-repeat="typeTache in listeTypesTache">
+										<td>{{typeTache.id}}</td>
+										<td>{{typeTache.nom}}</td>
+										<td>{{typeTache.categorie}}</td>
+										<td class="td-actions text-right">
+											<a  href="#/gestionTaches/modifierTypeTache/{{typeTache.id}}" rel="tooltip" title="Modifier" class="btn btn-info btn-simple btn-s" value="Modifier" >  
+												<i class="fa fa-edit"></i>
+											</a>
+											<a  href="#/gestionTaches/deleteTypeTache/{{typeTache.id}}" rel="tooltip" title="Supprimer" class="btn btn-danger btn-simple btn-s" value="Supprimer" ng-click="supprimerTypeTache(typeTache.id)" >
+												<i class="fa fa-times"></i>
+											</a>
+										</td>
+								</tr>
+							</tbody>
+                         </table>
+                    </div>
+				</div>
+	</div>
+</div>

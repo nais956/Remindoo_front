@@ -4,7 +4,7 @@
 			<div class="card ">
 				<div class="header">
 					<h4 class="title">Ajouter une note</h4>
-					<p class="category">Categorie</p>
+					<p class="category"></p>
 				</div>
 				<div class="content">
 					<div class="form-group">
@@ -13,15 +13,13 @@
 							<input type="text" class="form-control" ng-model="note.nom"><br>
 							<label>Texte : </label>
 							<input type="text" class="form-control" ng-model="note.texte"><br>
-							<label>Id Liste : </label>
-							<input type="text" class="form-control" ng-model="note.liste.id"><br>
+
 							
 							<input type="submit" class="btn btn-info btn-fill pull-right" ng-click="ajouterNote(note)" value="Ajouter" >	
 						</form>
-
-						Pour debuggage : {{note}}
-						</div>
+					<br>
+					</div>
 				</div>
+			</div>
+		</div>
 	</div>
-	</div>
-</div>

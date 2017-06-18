@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import fr.taches.domain.Note.Builder;
+//import fr.taches.domain.Note.Builder;
 
 @Entity
 
@@ -82,7 +82,7 @@ public class Liste {
         }
 
         public Builder withUtilisateur(Utilisateur utilisateur) {
-            this.utilisateur = utilisateur;
+            this.setUtilisateur(utilisateur);
             return this;
         }
 
@@ -91,6 +91,14 @@ public class Liste {
         public Liste build() {
             return new Liste(this);
         }
+
+		public Utilisateur getUtilisateur() {
+			return utilisateur;
+		}
+
+		public void setUtilisateur(Utilisateur utilisateur) {
+			this.utilisateur = utilisateur;
+		}
 	
 	
 	}

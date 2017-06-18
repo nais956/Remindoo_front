@@ -9,7 +9,14 @@ public class Demande implements Serializable {
 	private long id;
 	private Object contenu;
 	private long numero;
+	private Object reponse;
 	private boolean disponible = false;
+	
+	
+	public Demande(String typeDemande) {
+		super();
+		this.typeDemande = typeDemande;
+	}
 	
 	public Demande(String typeDemande, long id) {
 		super();
@@ -62,6 +69,15 @@ public class Demande implements Serializable {
 	
 	public void setDisponible() {
 		disponible = true;
+	}
+
+	public Object getReponse() {
+		return reponse;
+	}
+
+	public void setReponse(Object reponse) {
+		this.reponse = reponse;
+		this.contenu = null;
 	}
 	
 }

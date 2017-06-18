@@ -3,68 +3,96 @@ package fr.taches.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.taches.domain.Demande;
 import fr.taches.domain.Liste;
 import fr.taches.domain.Note;
 import fr.taches.domain.Tache;
-import fr.taches.service.ServiceListe;
+import fr.taches.jms.DemandesEnCours;
+import fr.taches.jms.Producer;
 
 @RestController
 public class ControllerListe {
 	
 	@Autowired
-	private ServiceListe ServiceListe;
+	private Producer producer;
+
+	private DemandesEnCours demandesencours = DemandesEnCours.getInstance();
+	private Demande demande;
+
+	private void envoiSimple() {
+		producer.sendDemande(demande);
+	}
+
+	private void envoiAvecRetour() {
+		demandesencours.posterDemande(demande);
+		producer.sendDemande(demande);
+		attenteRetour();
+	}
+
+	private void attenteRetour() {
+		synchronized(demande) {
+			try {
+				while (!demande.isDisponible())
+					demande.wait();
+			} catch (InterruptedException e) {e.printStackTrace();}
+		}
+	}
 	
-    @RequestMapping(value = "/listes", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/listes", method = RequestMethod.GET)
     public List<Liste>  getListes() {
-        return ServiceListe.listListe();
+		System.out.println("***** getListes *****");
+		demande = new Demande("getListes");
+		envoiAvecRetour();
+		return (List<Liste>)demande.getContenu();
     }
 
-	
     @RequestMapping(value = "/liste", method = RequestMethod.POST)
     public Liste postListe(@RequestBody Liste liste) {
-    	/*Liste newListe = new Liste.Builder()
-                .withNom(liste.getNom())
-                .withUtilisateur(liste.getUtilisateur())
-                .build();*/
-        ServiceListe.createListe(liste);
-        return liste;
+		System.out.println("***** postListe *****");
+		demande = new Demande("postListe");
+		envoiAvecRetour();
+		return (Liste)demande.getContenu();
     }
     
     @RequestMapping(value = "/liste/{idListe}", method = RequestMethod.POST)
     public void updateListe(@RequestBody Liste liste, @PathVariable("idListe") Long idListe){
-    	ServiceListe.updateListe(liste, idListe);
+		System.out.println("***** updateListe *****");
+		demande = new Demande("updateListe", idListe, liste);
+		envoiSimple();
     }
     
     @RequestMapping(value = "/deleteListe/{idListe}", method = RequestMethod.DELETE)
     public void  deleteListe(@PathVariable("idListe") Long idListe){
-    	List<Note> listeElements = ServiceListe.getAllElements(idListe);
-    	for(Note note : listeElements){
-    		ServiceListe.deleteNote(note.getId());
-    	}
-    	ServiceListe.deleteListe(idListe);
+    	System.out.println("***** deleteListe *****");
+    	demande = new Demande("deleteListe", idListe);
+		envoiSimple();
     }
     
-    @RequestMapping(value = "/getAllNotes/{idListe}", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getAllNotes/{idListe}", method = RequestMethod.GET)
     public List<Note> getAllNotes(@PathVariable("idListe") Long idListe) {
-		return ServiceListe.getAllNotes(idListe);
+    	System.out.println("***** getAllNotes *****");
+    	demande = new Demande("getAllNotes", idListe);
+		envoiAvecRetour();
+		return (List<Note>)demande.getReponse();
     }
     
     
     
-    @RequestMapping(value = "/getAllTaches/{idListe}", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getAllTaches/{idListe}", method = RequestMethod.GET)
     public List<Tache> getAllTaches(@PathVariable("idListe") Long idListe) {
-		return ServiceListe.getAllTaches(idListe);
+    	System.out.println("***** getAllTaches *****");
+    	demande = new Demande("getAllTaches", idListe);
+		envoiAvecRetour();
+		return (List<Tache>)demande.getReponse();
     }
    
 }

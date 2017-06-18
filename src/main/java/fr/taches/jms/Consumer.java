@@ -45,7 +45,7 @@ public class Consumer implements Runnable {
 				demande = demandesencours.getDemande(reponse.getNumero());
 				if (!(demande == null) ) {
 					synchronized (demande) {
-						demande.setContenu(reponse.getContenu());
+						demande.setReponse(reponse.getReponse());
 						demande.setDisponible();
 						demande.notifyAll();
 					}

@@ -7,15 +7,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import java.io.Serializable;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Note")
-public class Note   implements Serializable{
+public class Note   implements Serializable {
+
+	private static final long serialVersionUID = -4142036022065393602L;
+	
 	@Id
     @GeneratedValue
 	private Long id;
@@ -92,13 +93,29 @@ public class Note   implements Serializable{
         }
 
         public Builder withListe(Liste liste) {
-            this.liste = liste;
+            this.setListe(liste);
             return this;
         }
 
         public Note build() {
             return new Note(this);
         }
+
+		public Liste getListe() {
+			return liste;
+		}
+
+		public void setListe(Liste liste) {
+			this.liste = liste;
+		}
+
+		public Long getIdListe() {
+			return idListe;
+		}
+
+		public void setIdListe(Long idListe) {
+			this.idListe = idListe;
+		}
 }
 
 

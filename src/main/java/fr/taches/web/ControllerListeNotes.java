@@ -43,32 +43,32 @@ public class ControllerListeNotes {
 
 	@RequestMapping(value = "/voirNote/{idNote}", method = RequestMethod.GET)
 	public Note getNote(@PathVariable("idNote") Long idNote) {
-		System.out.println("getNote");
+		System.out.println("***** getNote *****");
 		demande = new Demande("getNote", idNote);
 		envoiAvecRetour();
-		return (Note)demande.getContenu();
+		return (Note)demande.getReponse();
 	}
 
 
 	@RequestMapping(value = "/{idListe}/note", method = RequestMethod.POST)
 	public Note postNote(@RequestBody Note note, @PathVariable("idListe") Long idListe) {
-		System.out.println("postNote");
+		System.out.println("***** postNote *****");
 		demande = new Demande("postNote", idListe, note);
 		envoiAvecRetour();
-		return (Note)demande.getContenu();
+		return (Note)demande.getReponse();
 	}
 
 
 	@RequestMapping(value = "/note/{idNote}", method = RequestMethod.POST)
 	public void updateNote(@RequestBody Note note, @PathVariable("idNote") Long idNote){
-		System.out.println("updateNote");
+		System.out.println("***** updateNote *****");
 		demande = new Demande("updateNote", idNote, note);
 		envoiSimple();
 	}
 
 	@RequestMapping(value = "/deleteNote/{idNote}", method = RequestMethod.DELETE)
 	public void  deleteNote(@PathVariable("idNote") Long idNote){
-		System.out.println("deleteNote");
+		System.out.println("***** deleteNote *****");
 		demande = new Demande("deleteNote", idNote);
 		envoiSimple();
 	}

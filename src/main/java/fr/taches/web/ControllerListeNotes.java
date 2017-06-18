@@ -1,56 +1,78 @@
 package fr.taches.web;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.taches.domain.Liste;
+import fr.taches.domain.Demande;
 import fr.taches.domain.Note;
-import fr.taches.service.ServiceListe;
+import fr.taches.jms.DemandesEnCours;
+import fr.taches.jms.Producer;
 
 @RestController
 public class ControllerListeNotes {
-	
+
 	@Autowired
-	private ServiceListe ServiceListe;
-	
-	
-    
-    @RequestMapping(value = "/voirNote/{idNote}", method = RequestMethod.GET)
-    public Note  getNote(@PathVariable("idNote") Long idNote) {
-        return ServiceListe.findNoteById(idNote);
-    }
+	private Producer producer;
+
+	private DemandesEnCours demandesencours = DemandesEnCours.getInstance();
+	private Demande demande;
+
+	private void envoiSimple() {
+		producer.sendDemande(demande);
+	}
+
+	private void envoiAvecRetour() {
+		demandesencours.posterDemande(demande);
+		producer.sendDemande(demande);
+		attenteRetour();
+	}
+
+	private void attenteRetour() {
+		synchronized(demande) {
+			try {
+				while (!demande.isDisponible())
+					demande.wait();
+			} catch (InterruptedException e) {e.printStackTrace();}
+		}
+	}
 
 
-    @RequestMapping(value = "/{idListe}/note", method = RequestMethod.POST)
-    public Note postNote(@RequestBody Note note, @PathVariable("idListe") Long idListe) {  	
-    	Liste liste = ServiceListe.findById(idListe);
-    	note.setListe(liste);
-        ServiceListe.createNote(note);
-        return note;
-     
-    }  
-    
-    @RequestMapping(value = "/note/{idNote}", method = RequestMethod.POST)
-    public void updateNote(@RequestBody Note note, @PathVariable("idNote") Long idNote){
-    	ServiceListe.updateNote(note, idNote);
-    }
-    
-    @RequestMapping(value = "/deleteNote/{idNote}", method = RequestMethod.DELETE)
-    public void  deleteNote(@PathVariable("idNote") Long idNote){
-    	ServiceListe.deleteNote(idNote);
-    }
-        
+	@RequestMapping(value = "/voirNote/{idNote}", method = RequestMethod.GET)
+	public Note getNote(@PathVariable("idNote") Long idNote) {
+		System.out.println("getNote");
+		demande = new Demande("getNote", idNote);
+		envoiAvecRetour();
+		return (Note)demande.getContenu();
+	}
+
+
+	@RequestMapping(value = "/{idListe}/note", method = RequestMethod.POST)
+	public Note postNote(@RequestBody Note note, @PathVariable("idListe") Long idListe) {
+		System.out.println("postNote");
+		demande = new Demande("postNote", idListe, note);
+		envoiAvecRetour();
+		return (Note)demande.getContenu();
+	}
+
+
+	@RequestMapping(value = "/note/{idNote}", method = RequestMethod.POST)
+	public void updateNote(@RequestBody Note note, @PathVariable("idNote") Long idNote){
+		System.out.println("updateNote");
+		demande = new Demande("updateNote", idNote, note);
+		envoiSimple();
+	}
+
+	@RequestMapping(value = "/deleteNote/{idNote}", method = RequestMethod.DELETE)
+	public void  deleteNote(@PathVariable("idNote") Long idNote){
+		System.out.println("deleteNote");
+		demande = new Demande("deleteNote", idNote);
+		envoiSimple();
+	}
+
 }
 
 

@@ -32,12 +32,12 @@ public class ServiceListeImpl implements ServiceListe {
     @Autowired
     private TypeTacheRepository typeTacheRepository;
     
-    @Autowired
+/*    @Autowired
     Consumer jmsConsumer;
      
     @Autowired
     Producer jmsProducer;
-
+*/
     @Async
     @Override
     public List<Note> listNote() {

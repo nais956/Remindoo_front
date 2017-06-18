@@ -25,18 +25,18 @@ public class Producer {
 	private QueueSession session;
 	private ObjectMessage message;
 	private QueueSender sender;
-	
+
 	public void sendDemande(Demande demande) {
 
 		try{
 
 			// connection au message broker
 			connection = factory.createQueueConnection();
-			
+
 			// ouvrir session sans transaction (1 seul message) et acquitement automatique
 			session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 			connection.start();
-			
+
 			// créer et envoyer message
 			message = session.createObjectMessage(demande);
 			sender = session.createSender(queue);
@@ -48,14 +48,5 @@ public class Producer {
 
 		}catch(Exception e){e.printStackTrace();}
 
-
-
-		/*jmsTemplate.send(new MessageCreator(){
-                @Override
-                public Message createMessage(Session session) throws JMSException{
-                    ObjectMessage objectMessage = session.createObjectMessage((Serializable) demande);
-                    return objectMessage;
-                }
-        });*/  
 	}
 }

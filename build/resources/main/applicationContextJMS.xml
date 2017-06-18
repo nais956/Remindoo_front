@@ -14,14 +14,18 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
 	<!-- QUEUE -->
 	
-	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="myQueue"/>
+	<bean id="queueDemandes" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="Remindoo-demandes"/>
+	</bean>
+	
+	<bean id="queueReponses" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="Remindoo-reponses"/>
 	</bean>	
 	
 	<!-- TOPIC -->
 	
 	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg value="myTopic"/>
+		<constructor-arg value="Topic-remindoo"/>
 	</bean>
 	
 </beans>

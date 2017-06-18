@@ -11,19 +11,19 @@ public class Demande implements Serializable {
 	private long numero;
 	private Object reponse;
 	private boolean disponible = false;
-	
-	
+
+
 	public Demande(String typeDemande) {
 		super();
 		this.typeDemande = typeDemande;
 	}
-	
+
 	public Demande(String typeDemande, long id) {
 		super();
 		this.typeDemande = typeDemande;
 		this.id = id;
 	}
-	
+
 	public Demande(String typeDemande, long id, Object contenu) {
 		super();
 		this.typeDemande = typeDemande;
@@ -62,11 +62,11 @@ public class Demande implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public boolean isDisponible() {
 		return (disponible);
 	}
-	
+
 	public void setDisponible() {
 		disponible = true;
 	}
@@ -79,5 +79,5 @@ public class Demande implements Serializable {
 		this.reponse = reponse;
 		this.contenu = null;
 	}
-	
+
 }

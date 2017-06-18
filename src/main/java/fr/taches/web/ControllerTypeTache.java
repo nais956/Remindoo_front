@@ -17,7 +17,7 @@ import fr.taches.jms.Producer;
 
 @RestController
 public class ControllerTypeTache {
-	
+
 	@Autowired
 	private Producer producer;
 
@@ -42,46 +42,46 @@ public class ControllerTypeTache {
 			} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
-	
-    @SuppressWarnings("unchecked")
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/typesTache", method = RequestMethod.GET)
-    public List<TypeTache>  getTypeTaches() {
-    	System.out.println("***** getTypeTaches *****");
-    	demande = new Demande("getTypeTaches");
+	public List<TypeTache>  getTypeTaches() {
+		System.out.println("***** getTypeTaches *****");
+		demande = new Demande("getTypeTaches");
 		envoiAvecRetour();
 		return (List<TypeTache>)demande.getReponse();
-    }
+	}
 
-    @RequestMapping(value = "/typeTache", method = RequestMethod.POST)
-    public TypeTache postTypeTache(@RequestBody TypeTache typeTache) {
-    	System.out.println("***** postTypeTache *****");
-    	demande = new Demande("postTypeTache", 0, typeTache);
+	@RequestMapping(value = "/typeTache", method = RequestMethod.POST)
+	public TypeTache postTypeTache(@RequestBody TypeTache typeTache) {
+		System.out.println("***** postTypeTache *****");
+		demande = new Demande("postTypeTache", 0, typeTache);
 		envoiAvecRetour();
 		return (TypeTache)demande.getReponse();
-    }  
-    
-    @RequestMapping(value = "/categorie", method = RequestMethod.GET)
-    public Categorie[] getCategories() {
-    	System.out.println("***** getCategories *****");
-    	demande = new Demande("getCategories");
+	}  
+
+	@RequestMapping(value = "/categorie", method = RequestMethod.GET)
+	public Categorie[] getCategories() {
+		System.out.println("***** getCategories *****");
+		demande = new Demande("getCategories");
 		envoiAvecRetour();
 		return (Categorie[])demande.getReponse();
-    }  
-    
-    @RequestMapping(value = "/typeTache/{idTypeTache}", method = RequestMethod.POST)
-    public void updateTypeTache(@RequestBody TypeTache typeTache, @PathVariable("idTypeTache") Long idTypeTache){
-    	System.out.println("***** updateTypeTache *****");
-    	demande = new Demande("updateTypeTache", idTypeTache, typeTache);
+	}  
+
+	@RequestMapping(value = "/typeTache/{idTypeTache}", method = RequestMethod.POST)
+	public void updateTypeTache(@RequestBody TypeTache typeTache, @PathVariable("idTypeTache") Long idTypeTache){
+		System.out.println("***** updateTypeTache *****");
+		demande = new Demande("updateTypeTache", idTypeTache, typeTache);
 		envoiSimple();
-    }
-    
-    @RequestMapping(value = "/deleteTypeTache/{idTypeTache}", method = RequestMethod.DELETE)
-    public void  deleteTypeTache(@PathVariable("idTypeTache") Long idTypeTache){
-    	System.out.println("***** deleteTypeTache *****");
-    	demande = new Demande("deleteTache", idTypeTache);
+	}
+
+	@RequestMapping(value = "/deleteTypeTache/{idTypeTache}", method = RequestMethod.DELETE)
+	public void  deleteTypeTache(@PathVariable("idTypeTache") Long idTypeTache){
+		System.out.println("***** deleteTypeTache *****");
+		demande = new Demande("deleteTache", idTypeTache);
 		envoiSimple();
-    }
-        
+	}
+
 }
 
 

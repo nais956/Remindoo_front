@@ -12,17 +12,17 @@ import fr.taches.jms.Consumer;
 public class RemindooApplication extends SpringBootServletInitializer  {
 
 	public static void main(String[] args) {
-	
+
 		SpringApplication.run(RemindooApplication.class, args);
-		
+
 		Thread thread = new Thread(new Consumer());
 		thread.run();
-		
+
 	}
-	
+
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(RemindooApplication.class);
-}
+	}
 }
 

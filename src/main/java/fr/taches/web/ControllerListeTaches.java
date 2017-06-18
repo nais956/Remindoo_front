@@ -14,7 +14,7 @@ import fr.taches.jms.Producer;
 
 @RestController
 public class ControllerListeTaches {
-	
+
 	@Autowired
 	private Producer producer;
 
@@ -40,28 +40,28 @@ public class ControllerListeTaches {
 		}
 	}
 
-    @RequestMapping(value = "/{idListe}/tache", method = RequestMethod.POST)
-    public Tache postTache(@RequestBody Tache tache, @PathVariable("idListe") Long idListe) {
-    	System.out.println("***** postTache *****");
-    	demande = new Demande("postTache", idListe, tache);
+	@RequestMapping(value = "/{idListe}/tache", method = RequestMethod.POST)
+	public Tache postTache(@RequestBody Tache tache, @PathVariable("idListe") Long idListe) {
+		System.out.println("***** postTache *****");
+		demande = new Demande("postTache", idListe, tache);
 		envoiAvecRetour();
 		return (Tache)demande.getReponse();
-    }  
-    
-    @RequestMapping(value = "/tache/{idTache}", method = RequestMethod.POST)
-    public void updateTache(@RequestBody Tache tache, @PathVariable("idTache") Long idTache){
-    	System.out.println("***** updateTache *****");
-    	demande = new Demande("updateTache", idTache, tache);
+	}  
+
+	@RequestMapping(value = "/tache/{idTache}", method = RequestMethod.POST)
+	public void updateTache(@RequestBody Tache tache, @PathVariable("idTache") Long idTache){
+		System.out.println("***** updateTache *****");
+		demande = new Demande("updateTache", idTache, tache);
 		envoiSimple();
-    }
-    
-    @RequestMapping(value = "/deleteTache/{idTache}", method = RequestMethod.DELETE)
-    public void  deleteTache(@PathVariable("idTache") Long idTache){
-    	System.out.println("***** deleteTache *****");
-    	demande = new Demande("deleteTache", idTache);
+	}
+
+	@RequestMapping(value = "/deleteTache/{idTache}", method = RequestMethod.DELETE)
+	public void  deleteTache(@PathVariable("idTache") Long idTache){
+		System.out.println("***** deleteTache *****");
+		demande = new Demande("deleteTache", idTache);
 		envoiSimple();
-    }
-        
+	}
+
 }
 
 

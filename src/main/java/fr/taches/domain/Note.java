@@ -16,27 +16,27 @@ import javax.persistence.*;
 public class Note   implements Serializable {
 
 	private static final long serialVersionUID = -4142036022065393602L;
-	
+
 	@Id
-    @GeneratedValue
+	@GeneratedValue
 	private Long id;
 	private String nom;
 	private String texte;
-	
-	
+
+
 	@ManyToOne
 	@JoinColumn(name="listeid")
 	@JsonBackReference
 	private Liste liste;
-	
-	
-	
-	
+
+
+
+
 
 	public Note() {
 
 	}
-	
+
 
 	protected Note(Builder note) {
 		this.id = note.id;
@@ -44,7 +44,7 @@ public class Note   implements Serializable {
 		this.texte = note.texte;
 	}
 
-	
+
 
 	public Long getId() {
 		return id;
@@ -64,12 +64,12 @@ public class Note   implements Serializable {
 	public void setTexte(String texte) {
 		this.texte = texte;
 	}
-	
+
 	public Liste getListe() { 
 		return liste; 
 	}
-	
-	
+
+
 	public static class Builder {
 		private Long id;
 		private String nom;
@@ -77,29 +77,29 @@ public class Note   implements Serializable {
 		private Long idListe;
 		private Liste liste;
 
-        public Builder withId(Long id) {
-            this.id = id;
-            return this;
-        }
+		public Builder withId(Long id) {
+			this.id = id;
+			return this;
+		}
 
-        public Builder withNom(String nom) {
-            this.nom = nom;
-            return this;
-        }
+		public Builder withNom(String nom) {
+			this.nom = nom;
+			return this;
+		}
 
-        public Builder withTexte(String texte) {
-            this.texte = texte;
-            return this;
-        }
+		public Builder withTexte(String texte) {
+			this.texte = texte;
+			return this;
+		}
 
-        public Builder withListe(Liste liste) {
-            this.setListe(liste);
-            return this;
-        }
+		public Builder withListe(Liste liste) {
+			this.setListe(liste);
+			return this;
+		}
 
-        public Note build() {
-            return new Note(this);
-        }
+		public Note build() {
+			return new Note(this);
+		}
 
 		public Liste getListe() {
 			return liste;
@@ -116,12 +116,12 @@ public class Note   implements Serializable {
 		public void setIdListe(Long idListe) {
 			this.idListe = idListe;
 		}
-}
+	}
 
 
 	public void setListe(Liste liste) {
 		this.liste = liste;
-		
+
 	}
-	
+
 }

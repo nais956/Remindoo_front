@@ -18,7 +18,7 @@ import fr.taches.jms.Producer;
 
 @RestController
 public class ControllerListe {
-	
+
 	@Autowired
 	private Producer producer;
 
@@ -43,56 +43,56 @@ public class ControllerListe {
 			} catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
-	
-    @SuppressWarnings("unchecked")
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/listes", method = RequestMethod.GET)
-    public List<Liste>  getListes() {
+	public List<Liste>  getListes() {
 		System.out.println("***** getListes *****");
 		demande = new Demande("getListes");
 		envoiAvecRetour();
 		return (List<Liste>)demande.getContenu();
-    }
+	}
 
-    @RequestMapping(value = "/liste", method = RequestMethod.POST)
-    public Liste postListe(@RequestBody Liste liste) {
+	@RequestMapping(value = "/liste", method = RequestMethod.POST)
+	public Liste postListe(@RequestBody Liste liste) {
 		System.out.println("***** postListe *****");
 		demande = new Demande("postListe");
 		envoiAvecRetour();
 		return (Liste)demande.getContenu();
-    }
-    
-    @RequestMapping(value = "/liste/{idListe}", method = RequestMethod.POST)
-    public void updateListe(@RequestBody Liste liste, @PathVariable("idListe") Long idListe){
+	}
+
+	@RequestMapping(value = "/liste/{idListe}", method = RequestMethod.POST)
+	public void updateListe(@RequestBody Liste liste, @PathVariable("idListe") Long idListe){
 		System.out.println("***** updateListe *****");
 		demande = new Demande("updateListe", idListe, liste);
 		envoiSimple();
-    }
-    
-    @RequestMapping(value = "/deleteListe/{idListe}", method = RequestMethod.DELETE)
-    public void  deleteListe(@PathVariable("idListe") Long idListe){
-    	System.out.println("***** deleteListe *****");
-    	demande = new Demande("deleteListe", idListe);
+	}
+
+	@RequestMapping(value = "/deleteListe/{idListe}", method = RequestMethod.DELETE)
+	public void  deleteListe(@PathVariable("idListe") Long idListe){
+		System.out.println("***** deleteListe *****");
+		demande = new Demande("deleteListe", idListe);
 		envoiSimple();
-    }
-    
-    @SuppressWarnings("unchecked")
+	}
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getAllNotes/{idListe}", method = RequestMethod.GET)
-    public List<Note> getAllNotes(@PathVariable("idListe") Long idListe) {
-    	System.out.println("***** getAllNotes *****");
-    	demande = new Demande("getAllNotes", idListe);
+	public List<Note> getAllNotes(@PathVariable("idListe") Long idListe) {
+		System.out.println("***** getAllNotes *****");
+		demande = new Demande("getAllNotes", idListe);
 		envoiAvecRetour();
 		return (List<Note>)demande.getReponse();
-    }
-    
-    
-    
-    @SuppressWarnings("unchecked")
+	}
+
+
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getAllTaches/{idListe}", method = RequestMethod.GET)
-    public List<Tache> getAllTaches(@PathVariable("idListe") Long idListe) {
-    	System.out.println("***** getAllTaches *****");
-    	demande = new Demande("getAllTaches", idListe);
+	public List<Tache> getAllTaches(@PathVariable("idListe") Long idListe) {
+		System.out.println("***** getAllTaches *****");
+		demande = new Demande("getAllTaches", idListe);
 		envoiAvecRetour();
 		return (List<Tache>)demande.getReponse();
-    }
-   
+	}
+
 }
